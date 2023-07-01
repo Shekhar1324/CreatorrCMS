@@ -1,0 +1,65 @@
+<%- include("header"); -%>
+
+<%- include("../success-message") -%>
+    <h1 style="text-align: center;" class="mt-4"> Handle Users</h1>
+<hr>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Users Database
+        </div>
+        <div class="card-body table-responsive">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>Delete</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <% users.forEach(function(user){ %>
+                        <%if(user.email!=="admin@admin.com"){%>
+                            <tr>
+                                <td>
+                                    <%=user.firstName%>
+                                </td>
+                                <td>
+                                    <%=user.lastName%>
+                                </td>
+                                <td>
+                                    <%=user.address%>
+                                </td>
+                                <td>
+                                    <%=user.email%>
+                                </td>
+                                <td><img style="width: 2.5rem; height: 2.5rem;" src="/images/<%=user.imageProfile%>" alt="">
+                                </td>
+                                <td>
+                                    <form action="/admindeleteAccount" method="POST"
+                                        onsubmit="return confirm('Do you really want to Delete Profile?');">
+                                        <input type="hidden" name="userId" value="<%= user._id %>" />
+                                        <button class="btn btn-danger btn-sm additional" type="submit">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <%}})%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <%- include("footer"); -%>

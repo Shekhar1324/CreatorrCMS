@@ -1,0 +1,10 @@
+<% for(var i=0; i<category.length; i++) { 
+    var category_array = category[i];
+    category_array = category_array.split(',');
+    for(var j = 0; j < category_array.length; j++){%>
+
+
+   <a style="color: white;" class="badge bg-secondary text-decoration-none link-light" href="/category/<%= category_array[j] %>"> <%=  category_array[j] %> </a> 
+
+  <%}%> 
+<%}%> 

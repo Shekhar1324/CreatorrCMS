@@ -1,0 +1,153 @@
+<% if(isSession===true){ %>
+  <%- include("../authUser/header") -%>
+<%}else{%>
+<%- include("../user/header"); -%>
+<%}%>
+<div style="width: 100%;" class="row">
+  <div class="col-lg-11">
+    <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+      <ol style="margin-left: 2rem; margin-right: 0.3rem;" class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a style="text-decoration: none;" href="/categories">Category</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><%=name%></li>
+      </ol>
+    </nav>
+  </div>
+  <div class="col-lg-1">
+    <% if(isSession===true){ %>
+        <div class="card-body" style="padding: 0%;margin-top: 1rem;">
+          
+          <a class="category__link" href="/authUser/dashboard">
+            <img class="rounded-circle centered-and-cropped" style="width: 2.5rem; height: 2.5rem;" src="/images/<%= user.imageProfile %>" alt="userImg.jpg" onerror="this.src='/usedImages/defaultProfile.png'">
+            <h6 ><%=user.firstName%> </h6>
+          </a>
+          
+        </div>
+      <%}%>
+</div>
+</div>
+
+<div class="row" style="width: 100%;">
+  <div class="col-lg-1">
+  </div>
+  <div class="col-lg-10">
+      <h1 style="margin-top: 1rem;text-align: center;" class="fw-bolder mb-1">
+        <%=name%>
+      </h1>
+  </div>
+  
+</div>
+<%if(posts.length!==0){%>
+<div class="row" style="width: 100%;">
+    <h2 class="col-lg-6" style="margin-left:0.625rem;"></h2>
+      <form action="/category/<%=name%>/searchCategories" method="get" class=" d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div style="margin-right: 0.6rem;" class="input-group">
+            <input class="form-control" name="searchTerm" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-primary" id="btnNavbarSearch" type="submit">Go</button>
+        </div>
+      </form>
+  </div>
+  <%}%>
+<%if(posts.length===0){%>
+<h3 style="text-align: center; margin: 8rem;">Sorry! No Results Found!</h3>
+<%}%>
+
+<div style="margin: 0; width: 95%; text-align: center;" class="row row-cols-2 row-cols-md-4 g-2 g-md-3 mx-3">
+    <% posts.forEach(function(post){ %>
+      <div >
+        <a style="margin: 1.25rem;" href="/posts/<%= post._id %>" class="category__link card mb-4">
+            <img style="height: 9.375rem;" class="card-img-top centered-and-cropped" src="/images/<%= post.imagePost %>" alt="Card image cap" onerror="this.src='/usedImages/default.png'">
+            <div class="card-body">
+              <div class="small text-muted">Published By <%= post.accountName %>  </div>
+              <h2 class="card-title">
+                <%= post.title.substring(0,7) %>
+              </h2>
+              <p class="card-text">
+                <%- (post.content.substring(0,12)).replace(/<[^>]*>?/gm, '')+"..." %>
+              </p>
+              
+            </div>
+          </a>
+        </div>
+    <% }); %>
+</div>
+
+<nav aria-label="Pagination">
+  <hr class="my-0" />
+  <ul class="pagination justify-content-center my-4">
+
+    <% if(searchTerm){ %>
+      <% var pageNum=0 %>
+    <% for(let j=1;j<=totalPages;j++){%>
+      <% if(j==currentPage) {%>
+      <% pageNum=j  %>
+      <!-- <li class="page-item active" aria-current="page"><a class="page-link" href="?page=<%=j%>"></a></li> -->
+      <%}}%>
+
+
+ <%if(currentPage===1){  %>
+  <% for(let j=1;j<=(totalPages>3?3:totalPages);j++){%>
+    <% if(j==currentPage) {%>
+      
+    <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="searchCategories?searchTerm=<%=searchTerm%>&page=<%=j%>"><%=j%></a></li>
+    <%}else{%>
+    <li class="page-item"><a style="text-decoration: none;" class="page-link" href="searchCategories?searchTerm=<%=searchTerm%>&page=<%=j%>"> <%=j%> </a></li>
+    <%}}%>
+  <%  }else if(currentPage===totalPages){  %>
+       <%  pageNum=pageNum-1;%>
+       <% for(let j=(totalPages>3?pageNum-1:1);j<=(pageNum+1);j++){ %>
+        <% if(j==currentPage) {%>
+          
+        <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="searchCategories?searchTerm=<%=searchTerm%>&page=<%=j%>"><%=j%></a></li>
+        <%}else{%>
+        <li class="page-item"><a style="text-decoration: none;" class="page-link" href="searchCategories?searchTerm=<%=searchTerm%>&page=<%=j%>"> <%=j%> </a></li>
+        <%}%>
+       <%}}else{ %>
+    <% for(let j=(pageNum-1);j<=(pageNum+1);j++){%>
+      <% if(j==currentPage) {%>
+        
+      <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="searchCategories?searchTerm=<%=searchTerm%>&page=<%=j%>"><%=j%></a></li>
+      <%}else{%>
+      <li class="page-item"><a style="text-decoration: none;" class="page-link" href="searchCategories?searchTerm=<%=searchTerm%>&page=<%=j%>"> <%=j%> </a></li>
+      <%}}}%>
+    <%}else{%>
+    <% var pageNum=0 %>
+    <% for(let j=1;j<=totalPages;j++){%>
+      <% if(j==currentPage) {%>
+      <% pageNum=j  %>
+      <!-- <li class="page-item active" aria-current="page"><a class="page-link" href="?page=<%=j%>"></a></li> -->
+      <%}}%>
+
+
+ <%if(currentPage===1){  %>
+  <% for(let j=1;j<=(totalPages>3?3:totalPages);j++){%>
+    <% if(j==currentPage) {%>
+      
+    <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"><%=j%></a></li>
+    <%}else{%>
+    <li class="page-item"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"> <%=j%> </a></li>
+    <%}}%>
+  <%  }else if(currentPage===totalPages){  %>
+       <%  pageNum=pageNum-1;%>
+       <% for(let j=(totalPages>3?pageNum-1:1);j<=(pageNum+1);j++){ %>
+        <% if(j==currentPage) {%>
+          
+        <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"><%=j%></a></li>
+        <%}else{%>
+        <li class="page-item"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"> <%=j%> </a></li>
+        <%}%>
+       <%}}else{ %>
+    <% for(let j=(pageNum-1);j<=(pageNum+1);j++){%>
+      <% if(j==currentPage) {%>
+        
+      <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"><%=j%></a></li>
+      <%}else{%>
+      <li class="page-item"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"> <%=j%> </a></li>
+      <%}}}}%>
+  </ul>
+</nav>
+
+<% if(isSession===true){ %>
+  <%- include("../authUser/footer") -%>
+<%}else{%>
+<%- include("../user/footer"); -%>
+<%}%>

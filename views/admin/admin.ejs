@@ -1,0 +1,74 @@
+<%- include("header"); -%>
+
+<%- include("../success-message") -%>
+    <h1 style="text-align: center;" class="mt-4">Dashboard</h1>
+    <hr>
+    <div style="margin: 0; width: 100%;" class="row">
+        <div  class="col-md-4">
+            <div class="card mb-4 px-0 mx-1">
+            <img class="card-img-top" src="/usedImages/posts.png" alt="Card image cap">
+            <div class="card-body">
+                <h2 style="text-align: center;" class="card-title">
+                    Posts
+                </h2>
+                <h6 style="text-align: center;" class="card-text"> Top Posts</h6>
+                <p class="card-text">
+                    <%for(var i=0;i<((posts.length>3)?3:posts.length);i++){%>
+                        <ul>
+                            <li>
+                                <%=posts[i].title%>
+                            </li>
+                        </ul>
+                    <%}%>
+                </p>
+            </div>
+        </div>
+        </div>
+
+        <div  class="col-md-4">
+            <div class="card mb-4 px-0 mx-1">
+            <img class="card-img-top" src="/usedImages/users.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h2 style="text-align: center;" class="card-title">
+                    Users
+                </h2>
+                <h6 style="text-align: center;" class="card-text"> Top Users</h6>
+                <p class="card-text">
+                    <%for(var i=0;i<((users.length>3)?3:users.length);i++){%>
+                        <%if(users[i].email!=="admin@admin.com"){%>
+                            <ul>
+                                <li>
+                                    <%=users[i].firstName%>
+                                </li>
+                            </ul>
+                            <%}}%>
+                </p>
+
+            </div>
+            </div>
+        </div>
+
+        <div  class="col-md-4">
+            <div class="card mb-4 px-0 mx-1">            
+            <img class="card-img-top" src="/usedImages/category.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h2 style="text-align: center;" class="card-title">
+                    Categories
+                </h2>
+                <h6 style="text-align: center;" class="card-text"> Available Categories</h6>
+                <p class="card-text">
+                    <%for(var i=0;i<((categories.length>3)?3:categories.length);i++){%>
+                        <ul>
+                            <li>
+                                <%=categories[i].name%>
+                            </li>
+                        </ul>
+                        <%}%>
+                </p>
+
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- code -->
+    <%- include("footer"); -%>

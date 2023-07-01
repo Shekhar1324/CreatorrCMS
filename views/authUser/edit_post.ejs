@@ -1,0 +1,116 @@
+<%- include("header"); -%>
+<style>
+
+  @media (min-width: 768px){
+  .col-md-8 {
+      max-width: 100%;
+  }
+}
+</style>
+<div class="container-fluid">
+  <!-- FORM -->
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label class="additional">Title</label>
+          <input class="form-control" type="text" name="title" placeholder="Title" value="<%= post.title %>" required/>
+          <input type="hidden" name="postId" value="<%= post._id %>"/>
+          <div>
+            <input class="form-control additional" type="file" name="myImage"/>
+          </div>
+          <div>
+            <% if(post.imagePost){ %>
+                <img src="/images/<%= post.imagePost %>" alt="" style="width: 6.25rem;">
+              <% } %>
+          </div>
+          <label for="selectedCategory" style="margin-top: 1rem;">Select Categories</label>
+          <div class="removeDropdown" id="Dropdown">
+             
+              <div style="width: 7.5rem;" class="dropdown text-center ">
+                  <button style="border-color: black;" class="btn btn-default dropdown-toggle " type="button" data-toggle="dropdown">
+                     Select Categories </button>
+                  <ul class="dropdown-menu" >
+          
+                    <%  for(var i=0;i<categories.length;i++){  %> 
+                    <div class="">
+                       <li><label><input type="checkbox"  value='<%=categories[i].name%>' name="selectedCategory"/> <%=categories[i].name%></label></li>
+                      </div>
+                      <% } %>
+                    </ul>
+           </div>
+    </div>
+          <label class="additional">Content</label>
+          <textarea class="form-control tinymce" name="content" placeholder="Content" ><%= post.content %></textarea>
+          <label class="additional">Audio Input</label>
+            <textarea type="text" class="form-control" name="audioText" id="final" cols="30" rows="3"></textarea>
+            <div>
+              <span id="interim" class="text-secondary"></span>
+            </div>
+            <img type="button" alt="Start" id="start" src="/usedImages/mic.gif" onclick="changeImage()"/>
+            <img style="width: 1.875rem; height: 1.875rem;" type="button" alt="Start" id="stop" src="https://cdn-icons-png.flaticon.com/512/4903/4903963.png"/>
+        </div>
+
+        <!-- Preview Button -->
+        <br>
+        Click to view templates: <input type="checkbox" id="myCheck" onclick="myFunction()">
+        <div id="text" style="display: none; margin: 0; margin-top: 2rem; width: 100%; text-align: center;" class="row">
+          <% for(var i=0;i<allTemplates.length;i++){ %>
+              <div class="col-md-2">
+          
+              </div>
+              <div class="col-md-8">
+          
+                  <div style="margin: 1.25rem;" class="card cardborder mb-4">
+                      
+                      <img class="card-img-top" src="<%= allTemplates[i].image %>" alt="template">
+                      <div class="card-body" style="background-color: #474e5d; color: white;">
+                          
+                          <h4 class="card-title" ><%= allTemplates[i].name %></h4>
+                      </div>
+                      
+                  </div>
+              </div>
+              <div class="col-md-2">
+          
+              </div>
+              
+          <% } %>
+          </div>
+        <!-- Preview Button -->
+        <br>
+        <br>
+        <label for="tempId">Select a template:</label>
+        <select name="tempId">
+          <% for(var i=0;i<allTemplates.length;i++){ %>
+            <% if(i==post.templateId){%>
+          <option value=<%= i %> selected><%= allTemplates[i].name %></option>
+          <% }else{ %>
+            <option value=<%= i %>><%= allTemplates[i].name %></option>
+          <% }} %>
+        </select>
+        <br>
+        <input class="btn btn-warning additional" type="submit" name="button" value="Edit"/>
+      </form>
+
+      <!-- FORM END -->
+</div>
+
+<script>
+  function myFunction() {
+  // Get the checkbox
+  var checkBox = document.getElementById("myCheck");
+  // Get the output text
+  var text = document.getElementById("text");
+
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked == true){
+    text.style.display = "block";
+  } else {
+    text.style.display = "none";
+  }
+}
+</script>
+<script type="text/javascript" src="/tinymice/js/jquery.min.js"></script>
+		<script type="text/javascript" src="/tinymice/plugin/tinymce/tinymce.min.js"></script>
+		<script type="text/javascript" src="/tinymice/plugin/tinymce/init-tinymce.js"></script>
+    <script src="/authUser/speechRecognition.js"></script>
+<%- include("footer"); -%>

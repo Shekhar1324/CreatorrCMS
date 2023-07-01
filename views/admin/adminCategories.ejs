@@ -1,0 +1,75 @@
+<%- include("header"); -%>
+<%- include("../success-message") -%>
+    <h1 style="text-align: center;" class="mt-4">Handle Categories</h1>
+    <hr>
+    <h3  class="mt-4">Add Category</h3>
+    <form action="/admin/addCategory" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input class="form-control" type="text" name="name" placeholder="Name" required />
+            <div style="margin-top: 0.5rem;">
+                <input class="form-control" type="file" name="myImage" required />
+            </div>
+            <input class="btn btn-info mt-2" type="submit" name="button" value="Add" />
+        </div>
+    </form>
+
+    <!--  <code> -->
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Category Database
+        </div>
+        <div class="card-body table-responsive">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th>Image</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th></th>
+                        <th>Image</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <% let i=0; %>
+                        <% categories.forEach(function(category){ %>
+                            <tr>
+                                <td>
+                                    <%=category.name%>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <img style="width: 9.375rem; height: 9.375rem;" src="/images/<%= category.imageUrl %>"
+                                        alt="">
+                                </td>
+                                <td>
+                                    <a style="text-decoration: none;" type="button"
+                                        class="btn btn-info btn-sm additional"
+                                        href="/admin/categories/<%= category._id %>">Update</a>
+                                </td>
+                                <td>
+                                    <form action="/adminCatDelete" method="POST"
+                                        onsubmit="return confirm('Do you really want to Delete this post?');">
+                                        <input type="hidden" name="catId" value="<%=category._id%>" />
+                                        <button type='submit' class="btn btn-danger btn-sm additional">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <%})%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- </code> -->
+
+    <%- include("footer"); -%>

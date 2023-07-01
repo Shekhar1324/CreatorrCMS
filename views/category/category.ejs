@@ -1,0 +1,48 @@
+<% if(isSession===true){ %>
+  <%- include("../authUser/header") -%>
+<%}else{%>
+<%- include("../user/header"); -%>
+<%}%>
+<!-- <h1 class="pb-4" style="text-align: center; margin-top: 1rem;">Categories</h1> -->
+<div class="row" style="width: 100%;">
+  <div class="col-lg-1">
+  </div>
+  <div class="col-lg-10">
+      <h1 style="margin-top: 1rem;text-align: center;" class="fw-bolder mb-1">
+          Categories
+      </h1>
+  </div>
+  <div class="col-lg-1">
+      <% if(isSession===true){ %>
+          <div class="card-body" style="text-align: end;padding: 0%;margin-top: 1rem;">
+            
+            <a style="display: inline-block;" class="category__link" href="/authUser/dashboard">
+              <img class="rounded-circle centered-and-cropped" style="width: 3.125rem; height: 3.125rem;" src="/images/<%= user.imageProfile %>" alt="userImg.jpg" onerror="this.src='/usedImages/defaultProfile.png'">
+              <h6 ><%=user.firstName%> <p></p>
+            </a>
+            
+          </div>
+        <%}%>
+  </div>
+</div>
+
+<div style="margin: 0;width: 95%; text-align: center;" class="row row-cols-2 row-cols-md-3 g-2 g-md-3 mx-3">
+    <%categories.forEach(function(category){%>
+      <div>
+        <a href="/category/<%=category.name%>" class="category__link card mb-4" style="margin: 1.25rem;">
+                <img class="card-img-top centered-and-cropped" src="/images/<%=category.imageUrl%>" alt="blog.img" >
+                <div class="card-body">
+                  <h2 class="card-title">
+                    <%= category.name %>
+                  </h2> 
+                </div>
+              </a>
+            </div>
+        
+    <% }); %>
+</div>
+<% if(isSession===true){ %>
+  <%- include("../authUser/footer") -%>
+<%}else{%>
+<%- include("../user/footer"); -%>
+<%}%>

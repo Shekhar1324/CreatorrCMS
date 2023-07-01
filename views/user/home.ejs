@@ -1,0 +1,202 @@
+<% if(isSession===true){ %>
+  <%- include("../authUser/header") -%>
+<%}else{%>
+<%- include("header") -%>
+<%}%>
+
+<%- include("../success-message") -%>
+  <header class="py-4 border-bottom mb-4" style="background-color: #474e5d; color: white;">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Welcome to Creatorr!</h1>
+            <p class="lead mb-0">Your new favourite Content Management System</p>
+        </div>
+    </div>
+</header>
+
+   <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+          <h1 class="my-4">Creatorr
+            <small>Enjoy Reading</small>
+          </h1>
+          <!-- Blog Post -->
+          <%if(featuredPost && currentPage==1){%>
+            <div class="card mb-4 " style="background-color: #dddfe7;">
+                <img style="height: 18.75rem;" class="card-img-top centered-and-cropped" src="images/<%= featuredPost.imagePost %>" alt="Card image cap" onerror="this.src='/usedImages/default.png'">
+                <div class="card-body">
+                  <h5 class="mb-0 small"> Featured Post:</h5>
+                  <h2 class="card-title">
+                    <%= featuredPost.title %>
+                  </h2>
+                  <div class="small text-muted mb-2">Published By <%= featuredPost.accountName %>  </div>
+                  <p class="card-text">
+                    <%- (featuredPost.content.substring(0,580)).replace(/<[^>]*>?/gm, '')+"..." %>
+                  </p>
+                  <a style="text-decoration: none;" href="posts/<%= featuredPost._id %>" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            <hr>
+          <%}%>
+
+    <div class="container" style="padding: 0;">
+
+       <div class="row">
+        <% posts.forEach(function(post){ %>
+          <div class="col-lg-6 ">
+            
+             <div class="card mb-4">
+              <a href="posts/<%= post._id %>">
+                <img style="height: 12.5rem;" class="card-img-top centered-and-cropped" src="images/<%= post.imagePost %>" alt="Card image cap" onerror="this.src='/usedImages/default.png'">      
+
+              </a>
+                  <div class="card-body">
+                          
+                    <div class="small text-muted">Published By <%= post.accountName %>  </div>
+                    <h3 class="card-title">
+                      <%= post.title.substring(0,20) %>
+                    </h3>
+                    <p class="card-text">
+                      <%- (post.content.substring(0,35)).replace(/<[^>]*>?/gm, '')+"..." %>
+                    </p>
+                    <a style="text-decoration: none;" href="posts/<%= post._id %>" class="btn btn-primary">Read More &rarr;</a>
+                  </div>
+      
+             </div>    
+          </div>
+          <% }); %>
+      
+      
+      </div>
+      
+    </div>
+          
+            
+            <nav aria-label="Pagination">
+              <hr class="my-0" />
+              <ul class="pagination justify-content-center my-4">
+
+                <% var pageNum=0 %>
+                <% for(let j=1;j<=totalPages;j++){%>
+                  <% if(j==currentPage) {%>
+                  <% pageNum=j  %>
+                  <%}}%>
+
+
+             <%if(currentPage===1){  %>
+              <% for(let j=1;j<=(totalPages>3?3:totalPages);j++){%>
+                <% if(j==currentPage) {%>
+                  
+                <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"><%=j%></a></li>
+                <%}else{%>
+                <li class="page-item"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"> <%=j%> </a></li>
+                <%}}%>
+              <%  }else if(currentPage===totalPages){  %>
+                   <%  pageNum=pageNum-1;%>
+                   <% for(let j=(totalPages>3?pageNum-1:1);j<=(pageNum+1);j++){ %>
+                    <% if(j==currentPage) {%>
+                      
+                    <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"><%=j%></a></li>
+                    <%}else{%>
+                    <li class="page-item"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"> <%=j%> </a></li>
+                    <%}%>
+                   <%}}else{ %>
+                <% for(let j=(pageNum-1);j<=(pageNum+1);j++){%>
+                  <% if(j==currentPage) {%>
+                    
+                  <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"><%=j%></a></li>
+                  <%}else{%>
+                  <li class="page-item"><a style="text-decoration: none;" class="page-link" href="?page=<%=j%>"> <%=j%> </a></li>
+                  <%}}}%>
+              </ul>
+          </nav>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+          <% if(isSession===true){ %>
+            <div class="card-body" style="text-align: end;">
+              
+              <a class="category__link" href="/authUser/dashboard">
+                <img class="rounded-circle centered-and-cropped" style="width: 3.75rem; height: 3.75rem;" src="/images/<%= user.imageProfile %>" alt="userImg.jpg" onerror="this.src='/usedImages/defaultProfile.png'">
+                <h6 ><%=user.firstName%> </h6>
+              </a>
+              
+            </div>
+          <%}%>
+
+
+          <div class="card mb-4" style="margin-top: 1.25rem;">
+            <div class="card-header">Search</div>
+            <div class="card-body">
+              <form action="/search" method="get">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="searchTerm" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                    <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                </div>
+              </form>
+            </div>
+        </div>
+
+          <div class="card my-4">
+            <h5 class="card-header">Become a creator!</h5>
+            <div class="card-body" style="text-align: center;">
+              <a class="category__link" href="/authUser/posts"><img style="width: 10rem;" src="/usedImages/write.jpg" alt=""></a>
+            </div>
+          </div>
+
+          <!-- Categories Widget -->
+          <div class="card my-4">
+            <h5 class="card-header"><a style="text-decoration: none; color: #558cce;" href="/categories">Categories of Contents</a></h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-6">
+                  <%var i=0%>
+                  <%for(;i<(categories.length)/2;i++){ %>
+                    <ul class="mb-0">
+                      <li><a style="text-decoration: none;color: #558cce;" href="/category/<%=categories[i].name%>" ><%=categories[i].name%></a></li>
+                    </ul>
+                  <%}%>
+                </div>
+                <div class="col-lg-6">
+                  <%for(;i<(categories.length);i++){ %>
+                    <ul class="mb-0">
+                      <li><a style="text-decoration: none;color: #558cce;" href="/category/<%=categories[i].name%>" ><%=categories[i].name%></a></li>
+                    </ul>
+                  <%}%>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Side Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Glad to have you here !! 🤩</h5>
+            <div class="card-body">
+              <p>
+                Welcome to our Website!!
+              </p> 
+              <p>
+                Here, you can create, edit and give your valuable comments on the content here. 
+              </p>
+              <p>
+                Enjoy!!
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <% if(isSession===true){ %>
+      <%- include("../authUser/footer") -%>
+    <%}else{%>
+    <%- include("footer") -%>
+    <%}%>

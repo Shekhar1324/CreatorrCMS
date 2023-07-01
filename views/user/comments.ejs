@@ -1,0 +1,40 @@
+<section class="mb-5">
+    <div class="card bg-light">
+        <h5 style="text-align: left;" class="card-header">Leave a comment:</h5>
+        <div class="card-body">
+            <!-- Comment form-->
+            <form class="mb-4" action="/posts/<%= id %>/comment" method="POST">
+                <% if(isSession===true){ %>
+                    <div class="form-group">
+                        <input class="form-control additional" name="username" placeholder="Username" value="<%=user.firstName%>" style="display: none;" readonly>
+                    </div>
+                    <input type="text" name="url" value="<%= user.imageProfile %>" style="display: none;" readonly>
+                    <%}else{%>
+                        <div class="form-group">
+                            <input class="form-control additional" name="username" placeholder="Username">
+                        </div>
+                    <%}%>
+                <input type="hidden" name="post_id" value="<%= id %>">
+                <div class="form-group">
+                    <textarea class="form-control additional" rows="3" name="comment" placeholder="Join the discussion and leave a comment!"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            
+            <!-- Single comment-->
+            <% comments=comments.reverse(); %>
+            <% comments.forEach(function(comment){ %>
+            <div class="d-flex" style="margin-bottom: 1rem;">
+                <div class="flex-shrink-0"><img class="rounded-circle" style="width: 3.125rem; height: 3.125rem;" src="/images/<%=comment.imageComment%>" alt="..." onerror="this.src='/usedImages/defaultProfile.png'" /></div>
+                <div class="ms-3">
+                    <div class="fw-bold">
+                        <%= comment.username %>
+                    </div>
+                    <%= comment.comment %>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,88 @@
+<% if(isSession===true){ %>
+  <%- include("../authUser/header") -%>
+<%}else{%>
+<%- include("header") -%>
+<%}%>
+
+<div class="row" style="width: 100%;">
+  <h1 style="margin-top: 1rem; display: inline;" class="pb-4 col-lg-11">Search Results:</h1>
+    <% if(isSession===true){ %>
+        <div class="col-lg-1 card-body" style="padding: 0%; margin-top: 1rem;">
+          
+          <a class="category__link" href="/authUser/dashboard">
+            <img class="rounded-circle centered-and-cropped" style="width: 3.125rem; height: 3.125rem;" src="/images/<%= user.imageProfile %>" alt="userImg.jpg" onerror="this.src='/usedImages/defaultProfile.png'">
+            <h6 ><%=user.firstName%> <p></p>
+          </a>
+          
+        </div>
+      <%}%>
+</div>
+<hr>
+
+<%if(posts.length===0){%>
+  <h3 style="text-align: center; margin: 8rem;">Sorry! No Results Found!</h3>
+  <%}%>
+
+  <div style="margin: 0; margin-left: 2rem; width: 95%; text-align: center;" class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+    <% posts.forEach(function(post){ %>
+        <a style="text-decoration: none;" href="/posts/<%= post._id %>" class="category__link">
+        <div style="margin: 1.25rem;" class="card mb-4">
+            <img style="height: 9.375rem;" class="card-img-top centered-and-cropped" src="/images/<%= post.imagePost %>" alt="Card image cap" onerror="this.src='/usedImages/default.png'">
+            <div class="card-body">
+              <div class="small text-muted">Published By <%= post.accountName %>  </div>
+              <h2 class="card-title">
+                <%= post.title.substring(0,10) %>
+              </h2>
+              <p class="card-text">
+                <%- (post.content.substring(0,20)).replace(/<[^>]*>?/gm, '')+"..." %>
+              </p>
+               
+            </div>
+        </div>
+    </a>
+    <% }); %>
+</div>
+
+<nav aria-label="Pagination">
+  <hr class="my-0" />
+  <ul class="pagination justify-content-center my-4">
+
+    <% var pageNum=0 %>
+    <% for(let j=1;j<=totalPages;j++){%>
+      <% if(j==currentPage) {%>
+      <% pageNum=j  %>
+      <%}}%>
+
+
+ <%if(currentPage===1){  %>
+  <% for(let j=1;j<=(totalPages>3?3:totalPages);j++){%>
+    <% if(j==currentPage) {%>
+      
+    <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="search?searchTerm=<%=searchTerm%>&page=<%=j%>"><%=j%></a></li>
+    <%}else{%>
+    <li class="page-item"><a style="text-decoration: none;" class="page-link" href="search?searchTerm=<%=searchTerm%>&page=<%=j%>"> <%=j%> </a></li>
+    <%}}%>
+  <%  }else if(currentPage===totalPages){  %>
+       <%  pageNum=pageNum-1;%>
+       <% for(let j=(totalPages>3?pageNum-1:1);j<=(pageNum+1);j++){ %>
+        <% if(j==currentPage) {%>
+          
+        <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="search?searchTerm=<%=searchTerm%>&page=<%=j%>"><%=j%></a></li>
+        <%}else{%>
+        <li class="page-item"><a style="text-decoration: none;" class="page-link" href="search?searchTerm=<%=searchTerm%>&page=<%=j%>"> <%=j%> </a></li>
+        <%}%>
+       <%}}else{ %>
+    <% for(let j=(pageNum-1);j<=(pageNum+1);j++){%>
+      <% if(j==currentPage) {%>
+        
+      <li class="page-item active" aria-current="page"><a style="text-decoration: none;" class="page-link" href="search?searchTerm=<%=searchTerm%>&page=<%=j%>"><%=j%></a></li>
+      <%}else{%>
+      <li class="page-item"><a style="text-decoration: none;" class="page-link" href="search?searchTerm=<%=searchTerm%>&page=<%=j%>"> <%=j%> </a></li>
+      <%}}}%>
+  </ul>
+</nav>
+<% if(isSession===true){ %>
+  <%- include("../authUser/footer") -%>
+<%}else{%>
+<%- include("footer") -%>
+<%}%>

@@ -1,0 +1,24 @@
+<%- include("header"); -%>
+    <h1 style="text-align: center;" class="mt-4">Update <%=category.name%> Category</h1>
+<hr>
+    <!--  <code> -->
+
+    <div class="container-fluid">
+        <form action="/updateCat/<%=category._id%>/update" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="additional">Name</label>
+                <input class="form-control" type="text" name="catName" placeholder="Name" value="<%= category.name %>"
+                    required />
+
+                <div>
+                    <input class="form-control additional" type="file" name="myImage" />
+                </div>
+                <div>
+                    <img src="/images/<%= category.imageUrl %>" alt="" style="width: 6.25rem;">
+                </div>
+            </div>
+            <input class="btn btn-warning additional" type="submit" name="button" value="Update" />
+        </form>
+    </div>
+    <!-- </code> -->
+    <%- include("footer"); -%>

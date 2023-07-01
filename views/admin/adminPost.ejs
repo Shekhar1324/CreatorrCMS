@@ -1,0 +1,64 @@
+<%- include("header"); -%>
+<%- include("../success-message") -%>
+            <h1 style="text-align: center;" class="mt-4"> Handle Posts</h1>
+<hr>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Posts Database
+                </div>
+                <div class="card-body table-responsive">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Content</th>
+                                <th>Category</th>
+                                <th>Image</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Content</th>
+                                <th>Category</th>
+                                <th>Image</th>
+                                <th>Delete</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <% posts.forEach(function(post){ %>
+                                <tr>
+                                    <td>
+                                        <%=post.title%>
+                                    </td>
+                                    <td>
+                                        <%=post.accountName%>
+                                    </td>
+                                    <td><%- (post.content.substring(0,20)).replace(/<[^>]*>?/gm, '')+"..." %>
+                                            <a href="/posts/<%= post._id %>">Read More</a>
+                                    </td>
+                                    <td>
+                                        <%=post.category%>
+                                    </td>
+                                    <td><img style="width: 2.5rem; height: 2.5rem;" src="/images/<%=post.imagePost%>"
+                                            alt=""></td>
+                                    <td>
+                                        <form action="/adminDelete" method="POST"
+                                            onsubmit="return confirm('Do you really want to Delete this post?');">
+                                            <input type="hidden" name="postId" value="<%= post._id %>" />
+                                            <button type='submit'
+                                                class="btn btn-danger btn-sm additional">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%})%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <%- include("footer"); -%>

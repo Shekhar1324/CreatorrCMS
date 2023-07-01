@@ -1,0 +1,90 @@
+<%- include("header"); -%>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+
+      <%- include("../success-message") -%>
+        
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="/images/<%= user.imageProfile %>" alt="avatar"
+                class="rounded-circle img-fluid centered-and-cropped" style="width: 8.563rem; height: 8.563rem;" onerror="this.src='/usedImages/defaultProfile.png'">
+              <h5 class="my-2"><%= user.firstName %> <%= user.lastName %> </h5>
+              <p class="text-muted mb-1"><%= user.occupation %></p>
+              <p class="text-muted mb-4"><%= user.address %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">First Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= user.firstName %> </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Last Name</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= user.lastName %> </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= user.email %> </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Mobile</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= user.phoneNumber %> </p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%= user.address %> </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mb-2">
+            <a href="/authUser/profile" class="btn btn-primary">Update Profile</a>
+            <form style="margin-left: 1.25rem;" action="/deleteAccount" method="POST" onsubmit="return confirm('Do you really want to Delete Profile?');">
+                <input type="hidden" name="userId" value="<%= user._id %>"/>
+                <button class="btn btn-outline-primary ms-1" type="submit">Delete Profile</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<%- include("footer"); -%>

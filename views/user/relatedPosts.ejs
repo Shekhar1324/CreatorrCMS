@@ -1,0 +1,44 @@
+<!-- <div class="card my-4 bg-light">
+    <h5 class="card-header">Related posts:</h5>
+    <div class="card-body">
+        <div style="margin: 0; margin-left: 2rem; width: 95%; text-align: center;" class="row row-cols-2 row-cols-md-4 g-2 g-md-3">
+        <% relatedPosts.forEach(function (post) { %>
+                <div style="margin: 1.25rem;" class="card mb-4">
+                    <img style="height: 150px;" class="card-img-top centered-and-cropped" src="/images/<%= post.imagePost %>" alt="Card image cap" onerror="this.src='/usedImages/default.png'">
+                    <div class="card-body">
+                      <div class="small text-muted">Published By <%= post.accountName %>  </div>
+                      <h2 class="card-title">
+                        <%= post.title.substring(0,7) %>
+                      </h2>                                      
+                      <a style="text-decoration: none;" href="/posts/<%= post._id %>" class=" btn btn-primary">Read This</a>
+                    </div>
+                </div>
+        <% }) %>
+        </div>
+    </div>
+</div> -->
+
+<div class="container" style="padding: 0;">
+  <div class="card my-4 bg-light">
+    <h5 class="card-header">Related posts:</h5>
+  <div class="row">
+   <% relatedPosts.forEach(function(post){ %>
+     <div class="col-lg-3 ">
+      <div  class="card mb-4 mt-4 ml-1 mr-1" >
+        <img style="height: 9.375rem;" class="card-img-top centered-and-cropped" src="/images/<%= post.imagePost %>" alt="Card image cap" onerror="this.src='/usedImages/default.png'">
+        <div class="card-body" >
+          <div class="small text-muted">Published By <%= post.accountName %>  </div>
+          <h2 class="card-title">
+            <%= post.title.substring(0,7) %>
+          </h2>                                      
+          <a style="text-decoration: none;" href="/posts/<%= post._id %>" class=" btn btn-primary">Read This</a>
+        </div>
+    </div>
+           
+     </div>
+     <% }); %>
+ 
+ 
+ </div>
+ </div>
+</div>

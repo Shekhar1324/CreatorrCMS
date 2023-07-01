@@ -1,0 +1,60 @@
+<% if(isSession===true){ %>
+  <%- include("authUser/header") -%>
+<%}else{%>
+<%- include("user/header"); -%>
+<%}%>
+
+<div style="padding: 3.125rem; text-align: center; background-color: #474e5d; color: white;">
+    <h1>About Us Page</h1>
+    <p>We are the CMS-Team and we have built this CMS site.</p>
+    <p>This site allows everyone to read, write and manage their contents.</p>
+  </div>
+  
+  <h2 style="text-align:center; margin: 1.25rem 0;">Our Team</h2>
+
+  <div class="row" style="margin: 0rem; width: 100%;">
+    
+    <div class="col-md-4" style="margin-bottom: 1rem;">
+      <div style="box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+      margin: 0.5rem; " class="card">
+        <img src="/usedImages/team.jpg" alt="sarvesh.img" style="width:100%">
+        <div class="container">
+          <h2 style="margin-top: 1.25rem;">Shekhar</h2>
+          <p class="title">Founder & CEO</p>
+          <p>Developed the Creatorr webapp</p>
+          <p>shekhar@singh.com</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-4" style="margin-bottom: 1rem;">
+      <div style="box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+      margin: 0.5rem;" class="card">
+        <img src="/usedImages/team(2).jpg" alt="vividh.img" style="width:100%">
+        <div class="container">
+          <h2 style="margin-top: 1.25rem;">A</h2>
+          <p class="title">Database Designer</p>
+          <p>Connecting this CMS to the database servers using MongoDB and Mongoose.</p>
+          <p>email@a.com</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-4" style="margin-bottom: 1rem;" >
+      <div style="box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
+      margin: 0.5rem;" class="card">
+        <img src="/usedImages/team.jpg" alt="aditya.img" style="width:100%; ">
+        <div class="container">
+          <h2 style="margin-top: 1.25rem;">B</h2>
+          <p class="title">Frontend Developer</p>
+          <p>Designing the looks of the website using HTML, CSS and Javascript.</p>
+          <p>email@b.com</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if(isSession===true){ %>
+    <%- include("authUser/footer") -%>
+  <%}else{%>
+  <%- include("user/footer"); -%>
+  <%}%>

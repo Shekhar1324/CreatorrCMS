@@ -1,0 +1,394 @@
+<% if(isSession===true){ %>
+    <%- include("../authUser/header") -%>
+  <%}else{%>
+  <%- include("header") -%>
+  <%}%>
+        <%if(tempId==1){%>
+            <!-- TEMPLATE 1 -->
+            <style>
+                body{
+                    background-color: rgb(213, 215, 216);;
+                }
+                </style>
+                <!-- Background image -->
+            <div  id="bgcont">
+                <img class="centered-and-cropped" id="bgimg" src="/images/<%= image %>" alt="" style="height:28.125rem">
+                
+                <div id="bgtext" class="text-white" style="width: 100%;">
+                    
+                    <h1 style="font-size: 5rem;" class="fw-bolder mb-1"><%= title %></h1>
+                    <div class="text-muted fst-italic mb-2"> <i  style="color: white;"> By <%= name %></i></div>
+                    <%- include("categoryPost") -%>
+                    
+                </div>
+            </div>
+            
+            <!-- Page content-->
+            <div class="container" >
+                <div class="row">
+                    <div class="col-lg-12" >
+                        <!-- Post content-->
+                        <article style="padding-top: 0rem;">
+                            <!-- Post header-->
+                            <header style="text-align: center; padding-top: 0%;" class="">
+                                <!-- Post title-->
+                                <div class="row">
+                                    <div class="col-lg-11">
+                                        
+                                    </div>
+                                    <div class="col-lg-1">
+                                        
+                            <i class="fa fa-eye" title="Views" style=" margin-top: 1rem;"></i> <i><%= viewsCount %></i>
+                                    </div>
+                                                           
+                                </div>                    
+                            </header>
+                            <!-- Post content-->
+                            <!-- <hr>                -->
+                            <% var temp=content.replace(/<[^>]*>?/gm, '') %>
+                           <% var textToRead=temp.replace(/['"]+/g, '') %>
+                            <input type="hidden" id="txtInput" value="<%- textToRead %>">
+                            <section class="mb-5">
+                                
+                                <p style="font-size: 0.125rem;" class="fs-5 mb-4">
+                                    <%-content %>
+                                </p>
+                                
+                            </section>
+                        </article>
+                        <hr>
+                        <div class="row" style="width: 100%;margin-bottom: 2rem;">
+                            <div class="col-11">
+                                <div>
+                                    <h6>To listen this post:</h6>
+                                    Select Voice: <select id='voiceList'></select> <br>
+                                <img type="button" style="width: 1.875rem; height: 1.875rem; margin-top: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/482/482640.png" id='btnSpeak' >
+                                <img type="button" style="width: 1.875rem; height: 1.875rem;margin-left: 0.7rem;margin-top: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/3024/3024584.png" id='btnPause'>
+                                <img type="button" style="width: 1.875rem; height: 1.875rem;margin-left: 0.7rem;margin-top: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/126/126497.png" id='btnStop'>
+                                
+                                </div>
+                            </div>
+                            <div class="col-1" style="padding-right: 0rem;">
+                                <div class="row" style="width: 100%;">
+                                    <div class="col-lg-6 px-1">
+                                        <form action="/posts/<%= id %>/report" method="post" onsubmit="return confirm('Do you really want to Report?');">
+                                            <button class="btn mt-1 mx-1 px-1" style="font-size: 1.25rem;" title="Report" type="submit" ><i class=" fa fa-flag"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="mt-1 col-lg-6 px-1">
+                                        <%- include("share") -%>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <hr>
+                        <!-- Related Posts -->
+                        <%- include("relatedPosts") -%>
+            
+                        <%- include("comments") -%>
+                    </div>
+                    <!-- Side widgets-->
+            
+                </div>
+            </div>
+            <!-- TEMPLATE 1  end-->
+            <% }else {%>
+                <div class="container">
+                    <div class="row" >
+                        <div class="col-lg-12" >
+        <% if(tempId==0){ %>
+            <!-- TEMPLATE 0 -->
+                    <!-- Post content-->
+                    <article style="padding-top: 1.25rem;">
+                        <!-- Post header-->
+                        <header style="text-align: center;" class="mb-4">
+                            
+                            <!-- Post title-->
+                            
+                                    <h1 style="display: inline-block;margin-top: 1rem;" class="fw-bolder mb-1">
+                                        <%= title %>
+                                    </h1>
+                                
+                            
+                            <div class="text-muted fst-italic mb-2"> <i> Posted by <%= name %></i></div>
+
+                            <%- include("categoryPost") -%> 
+                         
+                        </header>
+                          
+                        <figure style="text-align: center;" class="mb-4">
+                            <img style=" width: 43.75rem; " height="21.875rem" class="img-fluid rounded centered-and-cropped" src="/images/<%= image %>" alt="..." onerror="this.src='/usedImages/default.png'" />
+                        </figure>
+                        <hr>
+                        <div>
+                            <h6>To listen this post:</h6>
+                            Select Voice: <select id='voiceList'></select>
+                        </div>
+                        <div class="row mt-2" style="width: 100%;">
+                            <div class="col-6">
+                                <img type="button" style="width: 1.875rem; height: 1.875rem;" src="https://cdn-icons-png.flaticon.com/512/786/786474.png" id='btnSpeak' >
+                                <img type="button" style="width: 1.875rem; height: 1.875rem;margin-left: 0.7rem;" src="https://cdn-icons-png.flaticon.com/512/260/260446.png" id='btnPause'>
+                                <img type="button" style="width: 1.563rem; height: 1.563rem;margin-left: 0.7rem;" src="https://cdn-icons-png.flaticon.com/512/8001/8001499.png" id='btnStop'>
+                            </div>
+                            <div class="col-6" style="text-align: end;">
+                                <i class="fa fa-eye" style="font-size:1.5rem;"> </i>
+                                <i><%= viewsCount %></i>
+                            </div>
+                        </div>
+                        <hr>               
+                        <% var temp=content.replace(/<[^>]*>?/gm, '') %>
+                        <% var textToRead=temp.replace(/['"]+/g, '') %>
+                        <input type="hidden" id="txtInput" value="<%- textToRead %>">
+                        <section class="mb-5">
+                            
+                            <p style="font-size: 0.125rem;" class="fs-5 mb-4">
+                                <%-content %>
+                            </p>
+                            
+                        </section>
+                    </article>
+                    <div class="row" style="width: 100%;margin-bottom: 2rem;">
+                        <div class="col-1 mt-1">
+                            <%- include("share") -%>
+                            </div>
+                        <div class="col-10"></div>
+                        <div class="col-1" style="text-align: end; padding-right: 0rem;">
+                            <form action="/posts/<%= id %>/report" method="post" onsubmit="return confirm('Do you really want to Report?');">
+                                <button class="btn" style="font-size:1.5rem;text-align: end;" title="Report" type="submit" ><i class="fa fa-flag"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- TEMPLATE 0 END -->
+                   
+<%}else if(tempId==2){%>
+<!-- TEMPLATE 2 -->
+<style>
+    body{
+        background-color: rgb(230, 230, 230);
+    }
+</style>
+
+            <!-- Post content-->
+            <article style="padding-top: 1.25rem;">
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <div class="row" style="margin-bottom: 0.5rem; width: 100%;">
+                        <div class="col-10">
+                            Tags: <%- include("categoryPost") -%> 
+
+                        </div>
+                        <div class="col-2" style="padding: 0%; text-align: end;">
+                            <i class="fa fa-eye" style="font-size:1.5rem;"> </i>
+                            <i><%= viewsCount %></i>
+                        </div>
+                    </div>
+                    <div class="row" style="width: 100%;">
+                        
+                        <div class="col-7 mt-1">
+                            <h1 style="display: inline-block;" class="fw-bolder mb-1">
+                                <%= title %>
+                            </h1>
+                        </div>
+                                <div class="col-5 mx-0 px-0" style="text-align: end;">
+                                    <h6 class="mt-2" style="display: inline-block;">Listen post:</h6> <select class="mt-2" style="width: 50%;" id='voiceList'></select> <br>
+                                    <img class="mt-1" type="button" style="width: 1.875rem; height: 1.875rem;" src="https://cdn-icons-png.flaticon.com/512/786/786474.png" id='btnSpeak' >
+                                    <img class="mt-1" type="button" style="width: 1.875rem; height: 1.875rem;margin-left: 0.7rem;" src="https://cdn-icons-png.flaticon.com/512/260/260446.png" id='btnPause'>
+                                    <img class="mt-1" type="button" style="width: 1.563rem; height: 1.563rem;margin-left: 0.7rem;" src="https://cdn-icons-png.flaticon.com/512/8001/8001499.png" id='btnStop'>
+                                    
+                                </div>
+                    </div>
+                    
+                    <!-- Post meta content-->
+                    <div class="text-muted fst-italic mb-2"> <i> Posted by <%= name %></i></div>
+                    
+                </header>
+                <!-- Preview image figure-->
+                <figure class="mb-4">
+                    <img style=" width: 35rem; " height="21.875rem" class="img-fluid rounded wrapText vl centered-and-cropped" src="/images/<%= image %>" alt="..." onerror="this.src='/usedImages/default.png'" />
+                </figure>
+
+                <section >
+                    <p style="font-size: 0.125rem;" class="fs-5 mb-4">
+                        <%-content %>
+                    </p>
+                </section>
+                <% var temp=content.replace(/<[^>]*>?/gm, '') %>
+                        <% var textToRead=temp.replace(/['"]+/g, '') %>
+                <input type="hidden" id="txtInput" value="<%- textToRead %>">
+            </article>
+            <div class="row" style="width: 100%;margin-bottom: 2rem;">
+                <div class="col-1 mt-1">
+                    <%- include("share") -%>
+                    </div>
+                <div class="col-10"></div>
+                <div class="col-1" style="text-align: end; padding-right: 0rem;">
+                    <form action="/posts/<%= id %>/report" method="post" onsubmit="return confirm('Do you really want to Report?');">
+                        <button class="btn" style="font-size:1.5rem;text-align: end;" title="Report" type="submit" ><i class="fa fa-flag"></i></button>
+                    </form>
+                </div>
+            </div>
+           
+<!-- TEMPLATE 2 END-->
+<%}else if(tempId==3){%>
+<!-- TEMPLATE 3 -->
+<style>
+    body{
+        background-color: pink;
+    }
+</style>
+            <!-- Post content-->
+            <article style="padding-top: 1.25rem;">
+                <!-- Post header-->
+                <header style="text-align: center;" class="mb-4">
+                    <!-- Post title-->
+                   
+                </header>
+                <!-- Preview image figure-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <figure class="mb-4">
+                            <img height="21.875rem" class="img-fluid rounded centered-and-cropped" src="/images/<%= image %>" alt="..." onerror="this.src='/usedImages/default.png'" />
+                        </figure>
+                    </div>
+                    <div class="col-md-6" style="text-align: center;">
+                            <div style="text-align: center;">
+                                <h1 style="display: inline-block;  color: rgb(192, 2, 65);" class="fw-bolder mb-1">
+                                    <%= title %>
+                                </h1>
+                            </div>
+                        <div>
+                            <img src="/images/<%=postUser.imageProfile%>" alt="avatar"class="rounded-circle img-fluid" style="width: 5rem; height: 5rem;" onerror="this.src='/usedImages/defaultProfile.png'">
+                            
+                        </div>
+                        <div class="text-muted fst-italic mb-2" > <i style="color: rgb(192, 2, 65);"> Author : <%= name %></i></div>
+                        Tags:
+                        <%- include("categoryPost") -%> 
+                        <div class="row mt-4">
+                            <div class="col-6" style="text-align: start;">
+                                <h6 style="display: inline-block;color: rgb(192, 2, 65);">Listen post:</h6> <select style="width: 6.25rem; background-color:rgb(241, 226, 228);" id='voiceList'></select>
+                                      
+                            </div>
+                            <div class="col-6" style="text-align: end;">
+                                <i class="fa fa-eye" style="font-size:1.5rem;color: rgb(192, 2, 65);"> </i>
+                            <i style="color: rgb(192, 2, 65);"><%= viewsCount %></i>
+                        </div>
+                        </div>
+                        
+                        <div style="text-align: start;">
+                            <img type="button" style="width: 1.563rem; height: 1.563rem;" src="https://cdn-icons-png.flaticon.com/512/3293/3293810.png" id='btnSpeak' >
+                            <img type="button" style="width: 1.563rem; height: 1.563rem;margin-left: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/189/189890.png" id='btnPause'>
+                            <img type="button" style="width: 1.563rem; height: 1.563rem;margin-left: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/753/753345.png" id='btnStop'>
+                            
+                </div>
+                    </div>
+                </div>  
+                <hr>               
+                <% var temp=content.replace(/<[^>]*>?/gm, '') %>
+                <% var textToRead=temp.replace(/['"]+/g, '') %>
+                <input type="hidden" id="txtInput" value="<%- textToRead %>">
+                <section class="mb-5" style="color: rgb(42, 1, 14);">
+                    
+                    <p style="font-size: 0.125rem; " class="fs-5 mb-4">
+                        <%-content %>
+                    </p>
+                    
+                </section>
+            </article>
+            <div class="row" style="width: 100%;margin-bottom: 2rem;">
+                <div class="col-1 mt-1 coloring" >
+                    <%- include("share") -%>
+                    </div>
+                <div class="col-10"></div>
+                <div class="col-1" style="text-align: end; padding-right: 0rem;">
+                    <form action="/posts/<%= id %>/report" method="post" onsubmit="return confirm('Do you really want to Report?');">
+                        <button class="btn" style="font-size:1.5rem;text-align: end;" title="Report" type="submit" ><i class="fa fa-flag" style="color: rgb(192, 2, 65);"></i></button>
+                    </form>
+                </div>
+            </div>
+
+           <script>
+            document.querySelector("div.coloring > button").style="color:rgb(192, 2, 65);"
+           </script>
+<!-- TEMPLATE 3 END-->
+<%}else if(tempId==4){%>
+<!-- TEMPLATE 4 -->
+<style>
+    body{
+        background-color: rgb(213, 215, 216);
+    }
+  </style>
+            
+            <div class="card mb-4 mx-auto" style="width: 85%; margin-top: 1rem;">
+                <img style="height:21.875rem;" class="card-img-top centered-and-cropped" src="/images/<%= image %>" alt="Card image cap" onerror="this.src='/usedImages/default.png'">
+                <div class="card-body">
+                    <h1 style="text-align: center;" class="card-title fw-bolder mb-1" >
+                        <%= title %>
+                    </h1>
+                    <div class="small text-muted" style="text-align: center;">Published By <%= name %>  </div>
+                    <div style="text-align: center;">
+                        <%- include("categoryPost") -%>
+                    </div>
+                    <div class="row mx-0 px-0" style="width: 100%;">
+                        <div class="col-md-11 px-0"></div>
+                        <div class="col-md-1 px-0" style="text-align: center;">
+                            <i class="fa fa-eye" style="font-size:1.5rem;"> </i>
+                            <i><%= viewsCount %></i>
+                        </div>
+                    </div>
+                  <p class="card-text">
+                    <%- content %>
+                  </p>
+                </div>
+                <hr>
+                <div class="row mx-0 px-0" style="width: 100%;margin-bottom: 2rem;">
+                    <div class="col-10">
+                        <div>
+                            <h6>To listen this post:</h6>
+                            Select Voice: <select id='voiceList'></select> <br>
+                        <img type="button" style="width: 1.875rem; height: 1.875rem; margin-top: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/482/482640.png" id='btnSpeak' >
+                        <img type="button" style="width: 1.875rem; height: 1.875rem;margin-left: 0.7rem;margin-top: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/3024/3024584.png" id='btnPause'>
+                        <img type="button" style="width: 1.875rem; height: 1.875rem;margin-left: 0.7rem;margin-top: 0.5rem;" src="https://cdn-icons-png.flaticon.com/512/126/126497.png" id='btnStop'>
+                        
+                        </div>
+                    </div>
+                    <% var temp=content.replace(/<[^>]*>?/gm, '') %>
+                    <% var textToRead=temp.replace(/['"]+/g, '') %>
+                    <input type="hidden" id="txtInput" value="<%- textToRead %>">
+                    <div class="col-2" style="padding-right: 0rem;">
+                        <div class="row" style="width: 100%;">
+                            <div class="col-lg-6 ">
+                                <form action="/posts/<%= id %>/report" method="post" onsubmit="return confirm('Do you really want to Report?');">
+                                    <button  class="btn mt-1 mx-1 px-1" style="font-size: 1.25rem;" title="Report" type="submit" ><i class=" fa fa-flag"></i></button>
+                                </form>
+                            </div>
+                            <div class="mt-1 col-lg-6 ">
+                                <%- include("share") -%>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <hr>
+            <!-- TEMPLATE 4 END -->
+<%}%>
+<!-- Related Posts -->
+<%- include("relatedPosts") -%>
+    <!-- Comments section-->
+<%- include("comments") -%>
+
+</div>
+
+</div>
+</div>
+<%}%>
+
+<script src="/authUser/js/speak.js"></script>
+
+        <% if(isSession===true){ %>
+            <%- include("../authUser/footer") -%>
+          <%}else{%>
+          <%- include("footer") -%>
+          <%}%>

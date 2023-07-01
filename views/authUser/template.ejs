@@ -1,0 +1,32 @@
+<%- include("header"); -%>
+
+<h3 class="py-4" style="text-align: center; background-color: #474e5d; color: white;">Select a template for your post!</h3>
+<div style="margin: 0; margin-top: 2rem; width: 100%; text-align: center;" class="row ">
+<% for(var i=0;i<allTemplates.length;i++){ %>
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
+
+        <div style="margin: 1.25rem;" class="card cardborder mb-4">
+            
+            <img class="card-img-top zoom"  src="<%= allTemplates[i].image %>" alt="template">
+            <div class="card-body">
+                
+                <h4 class="card-title"><%= allTemplates[i].name %></h4>
+                    <form action="/previewTemplate" method="post">
+                        <input type="hidden" value="<%= newpost %>" name="data">
+                        <input type="hidden" value=<%= i %> name="tempId">
+                        <button class="btn btn-primary" type="submit">Select</button>
+                    </form>
+            </div>
+            
+        </div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    
+<% } %>
+</div>
+<%- include("footer"); -%>
